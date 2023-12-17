@@ -1,0 +1,161 @@
+﻿<Page x:Class="ForeignLanguagesSchoolApp.pages.AddEditClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ForeignLanguagesSchoolApp.pages" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditClientPage">
+
+    <Page.Resources>
+        <sys:String x:Key="defaultImage">
+            pack://application:,,,/images/logo/school_logo.png
+        </sys:String>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--ClientData-->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ID" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия*" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя*" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Email" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Телефон*" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Дата рождения" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Пол" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Фото" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4"/>
+
+                <TextBox Name="tbId" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding ID}" IsEnabled="False"/>
+                <TextBox Name="tbFirstName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding FirstName}"/>
+                <TextBox Name="tbLastName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding LastName}"/>
+                <TextBox Name="tbPatronymic" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Patronymic}"/>
+                <TextBox Name="tbEmail" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Email}"/>
+                <TextBox Name="tbPhone" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Phone}"/>
+                <DatePicker Name="dpBirthday" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Birthday}"/>
+                <ComboBox Name="cmbGender" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" SelectedValuePath="Code" DisplayMemberPath="Name" SelectedIndex="{Binding GenderList, Mode = OneWay}" IsSynchronizedWithCurrentItem="True"/>
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                    <Image Name="imgClient" Height="64" Width="64" Source="{Binding ImgPath, FallbackValue={StaticResource defaultImage}}"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <Button Name="btnEnterImage" Margin="4" Content="Выбрать фото" Click="btnEnterImage_Click" FontFamily="Comic Sans MS" FontSize="12" Background="White" Foreground="Black"/>
+                        <Button Name="btnDeleteImage" Margin="4" Content="Удалить фото" Click="btnDeleteImage_Click" FontFamily="Comic Sans MS" FontSize="12" Background="White" Foreground="Black"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!--Tag-->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Теги" Name="tbName" FontFamily="Comic Sans MS" FontSize="16" VerticalAlignment="Bottom"/>
+                </StackPanel>
+
+                <!--tags-->
+                <Grid Grid.Row="1">
+                    <ListView x:Name="LViewTags"  Margin="4" d:ItemsSource="{d:SampleData ItemCount=1}" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.RowSpan="2">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Background="{Binding Background}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="231*"/>
+                                            <ColumnDefinition Width="233*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Color}" Margin="63,0,63,0" Name="tbColor"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Title}" Margin="101,0,101,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <!--tags buttons-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Заголовок" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="1" Text="Цвет" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Name="tbTagName" Grid.Row="0" Margin="4" Height="16"/>
+                        <TextBox Name="tbTagColor" Grid.Row="1" Margin="4" Height="16"/>
+                        <Button Name="btAddTag" Content="Добавить" Grid.Column="1" Grid.Row="2" Height="24" Margin="4" FontFamily="Comic Sans MS" FontSize="12" Background="White" Foreground="#04a0ff" Click="btAddTag_Click"/>
+                    </Grid>
+                    <Button Name="btDeleteTag" Content="Удалить тег" Grid.Column="3" Height="32" VerticalAlignment="Top" Margin="4" FontFamily="Comic Sans MS" FontSize="12" Background="#04a0ff" Foreground="Black" Click="btDeleteTag_Click"/>
+                    <ComboBox Name="cmbTags" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectedValuePath="ID" DisplayMemberPath="Title" SelectedIndex="{Binding TagList, Mode = OneWay}" IsSynchronizedWithCurrentItem="True" SelectionChanged="cmbTags_SelectionChanged"/>
+                    <Button x:Name="btAddCurrent" Content="Добавить клиенту" Grid.Column="3" Height="32" VerticalAlignment="Bottom" Margin="4,84,4,0" FontFamily="Comic Sans MS" FontSize="12" Background="#04a0ff" Foreground="Black" Click="btAddCurrent_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btDeleteClient" Grid.Column="0" Margin="4" Height="32" Content="Удалить" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" Background="#04a0ff" Foreground="White" Click="btDeleteClient_Click"/>
+            <Button Name="btSaveClient" Grid.Column="1" Margin="4" Height="32" Content="Сохранить" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="16" Background="White" Foreground="#04a0ff" Click="btSaveClient_Click"/>
+        </Grid>
+    </Grid>
+</Page>
